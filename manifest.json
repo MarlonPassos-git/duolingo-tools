@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Meu Plugin Duolingo",
+  "version": "1.0",
+  "description": "Adiciona um quadrado fixo na tela que diz 'olá mundo' quando clicado.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.duolingo.com/*"
+      ],
+      "js": [
+        "index.js"
+      ]
+    }
+  ]
+}
