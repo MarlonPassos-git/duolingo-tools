@@ -7,6 +7,7 @@
 
 import {
   EVENT_RESULT_ERROR,
+  EVENT_FINISH_LESSON,
   LOCAL_STORAGE_KEY_AUTO_COMPLETE_INPUT as LOCAL_STORAGE_KEY
 } from '../constants';
 import { getInputElement } from "../utils/elements"
@@ -36,6 +37,12 @@ export class AutoCompleteWrongTextArea {
 
   init() {
     document.addEventListener(EVENT_RESULT_ERROR, this.handle.bind(this));
+    document.addEventListener(EVENT_FINISH_LESSON, this.removeEventListener.bind(this), { once: true });
+  }
+
+  private removeEventListener() {
+    this.storage.clearAll();
+    document.removeEventListener(EVENT_RESULT_ERROR, this.handle.bind(this));
   }
 
   private handle() {
