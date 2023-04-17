@@ -1,5 +1,8 @@
 import { expect, describe, it } from "vitest"
-import { correctFooterContainer } from "../__mocks__/htmls/correctFooterContainer"
+import {
+  correctFooterContainer,
+  incorrectFooterContainer
+} from "../__mocks__/htmls"
 import { getIncorrectFooterContainer } from "./elements"
 
 describe(getIncorrectFooterContainer.name, () => {
@@ -7,5 +10,10 @@ describe(getIncorrectFooterContainer.name, () => {
     window.document.body.innerHTML = correctFooterContainer
     console.log("saa")
     expect(getIncorrectFooterContainer()).toBe(null)
+  })
+
+  it("should return a element if is in documents with incorrect container", () => {
+    window.document.body.innerHTML = incorrectFooterContainer
+    expect(getIncorrectFooterContainer()).not.toBe(null)
   })
 })
