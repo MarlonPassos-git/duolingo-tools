@@ -22,12 +22,4 @@ function minhaFuncao() {
 
 document.addEventListener(EVENT_SHOW_INPUT, minhaFuncao);
 
-export function isVisibleWindow<T extends Element>(elemento: T) {
-  if (!elemento) return false;
-  if (elemento instanceof HTMLInputElement) {
-    if (elemento.disabled) return false;
-  }
-  return elemento?.parentNode !== null;
-}
-
-console.log("deu ruim, produtividade, 2")
+console.log("deu ruim, produtividade, 3")

@@ -1,4 +1,4 @@
-import { isVisibleWindow } from '..';
+import { isElementVisible } from "../utils/isElementVisible";
 import { EVENT_SHOW_INPUT } from '../constants/events';
 
 export let eventHasTriggered = false;
@@ -10,7 +10,7 @@ export function initEventShowInput() {
   if ($element) {
 
     const interval = setInterval(() => {
-      if (!isVisibleWindow($element)) {
+      if (!isElementVisible($element)) {
         initEventShowInput();
         eventHasTriggered = false;
         clearInterval(interval);
