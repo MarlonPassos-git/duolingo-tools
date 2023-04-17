@@ -12,7 +12,7 @@ describe(AutoCompleteWrongTextArea.name, () => {
   it("se o error acontecer na primeira vez em uma pagina do tipo input deve salvar no local storage oque a pessoa digitou", () => {
     const { sut, storage, getTextAreaSpy } = makeSut()
     sut.init()
-    getTextAreaSpy.mockReturnValue(document.createElement('textarea'))
+    getTextAreaSpy.mockReturnValue(makeTextArea())
     dispatchEventByName(EVENT_RESULT_ERROR)
 
     expect(storage.set).toHaveBeenCalledTimes(1)
@@ -21,19 +21,17 @@ describe(AutoCompleteWrongTextArea.name, () => {
   it("se o error acontecer na primeira vez em uma pagina do tipo input deve salvar no local storage oque a pessoa digitou", () => {
     const { sut, storage, getTextAreaSpy } = makeSut()
     sut.init()
-    const $textarea = document.createElement('textarea')
-    $textarea.value = 'any_value'
+    const $textarea = makeTextArea()
     getTextAreaSpy.mockReturnValue($textarea)
     dispatchEventByName(EVENT_RESULT_ERROR)
 
-    expect(storage.set).toHaveBeenCalledWith('any_question_id', 'any_value')
+    expect(storage.set).toHaveBeenCalledWith('any_question_id_1', 'any_value_1')
   })
 
   it("se cada tipos id de questão deve ter um local storage diferente", () => {
     const { sut, storage, getTextAreaSpy, getQuestionIdSpy } = makeSut()
     sut.init()
-    const $textarea = document.createElement('textarea')
-    $textarea.value = 'any_value_1'
+    const $textarea = makeTextArea()
     getTextAreaSpy.mockReturnValue($textarea)
 
     dispatchEventByName(EVENT_RESULT_ERROR)
@@ -51,20 +49,25 @@ describe(AutoCompleteWrongTextArea.name, () => {
   it("se o error acontecer na segunda vez em um mesmo tipo de erro devemos substituir o primeiro valor salvo", () => {
     const { sut, storage, getTextAreaSpy } = makeSut()
     sut.init()
-    const $textarea = document.createElement('textarea')
-    $textarea.value = 'any_value'
+    const $textarea = makeTextArea()
     getTextAreaSpy.mockReturnValue($textarea)
     dispatchEventByName(EVENT_RESULT_ERROR)
 
     $textarea.value = 'any_value_2'
     dispatchEventByName(EVENT_RESULT_ERROR)
-
-    expect(storage.set).toHaveBeenCalledWith('any_question_id', 'any_value_2')
+    expect(storage.set).toHaveBeenCalledWith('any_question_id_1', 'any_value_2')
   })
 
   function dispatchEventByName(eventName: string) {
     const event = new Event(eventName)
     document.dispatchEvent(event)
+  }
+
+  function makeTextArea() {
+    const result = document.createElement('textarea')
+    result.value = 'any_value_1'
+
+    return result
   }
 
   function makeSut() {
