@@ -2,7 +2,7 @@
   "name": "chrome-exetension-helloWold",
   "description": "",
   "scripts": {
-    "dev": "vite",
+    "dev": "rm dist/* -rf && vite",
     "build": "tsc && vite build"
   },
   "keywords": [],

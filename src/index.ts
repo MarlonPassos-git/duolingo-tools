@@ -1,4 +1,5 @@
 import { EVENT_SHOW_INPUT } from './constants/events';
+import { initAllEvents } from './events'
 
 const square = document.createElement('div');
 square.classList.add('square');
@@ -10,34 +11,10 @@ square.addEventListener('click', () => {
 });
 
 document.body.appendChild(square);
-const eventoEspecial = new Event(EVENT_SHOW_INPUT);
 
 // Variável de sinalização
-let eventoJaAcionado = false;
 
-function initEventShowInput() {
-  const elementoEspecial = document.querySelector('[data-test="challenge-translate-input"]:enabled');
-
-  if (elementoEspecial) {
-
-    const interval = setInterval(() => {
-      if (!isVisibleWindow(elementoEspecial)) {
-        initEventShowInput();
-        eventoJaAcionado = false;
-        clearInterval(interval);
-      }
-    }, 100);
-
-    if (!eventoJaAcionado) {
-      eventoJaAcionado = true;
-      document.dispatchEvent(eventoEspecial);
-    }
-  } else {
-    setTimeout(initEventShowInput, 100);
-  }
-}
-
-initEventShowInput();
+initAllEvents();
 
 function minhaFuncao() {
   console.log('O elemento especial apareceu!');
@@ -45,10 +22,12 @@ function minhaFuncao() {
 
 document.addEventListener(EVENT_SHOW_INPUT, minhaFuncao);
 
-function isVisibleWindow(elemento) {
+export function isVisibleWindow<T extends Element>(elemento: T) {
   if (!elemento) return false;
-  if (elemento.disabled) return false;
+  if (elemento instanceof HTMLInputElement) {
+    if (elemento.disabled) return false;
+  }
   return elemento?.parentNode !== null;
 }
 
-console.log("deu ruim, produtividade")
+console.log("deu ruim, produtividade, 2")
