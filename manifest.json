@@ -10,11 +10,13 @@
         "https://www.duolingo.com/*"
       ],
       "js": [
-        "index.js"
+        "src/index",
+        "src/constants/events"
       ],
       "css": [
         "styles.css"
-      ]
+      ],
+      "run_at": "document_idle"
     }
   ],
   "web_accessible_resources": [

@@ -1,3 +1,5 @@
+import { EVENT_SHOW_INPUT } from './constants/events';
+
 const square = document.createElement('div');
 square.classList.add('square');
 square.innerText = 'Clique-me!';
@@ -8,7 +10,6 @@ square.addEventListener('click', () => {
 });
 
 document.body.appendChild(square);
-const EVENT_SHOW_INPUT = 'elementoEspecialApareceu';
 const eventoEspecial = new Event(EVENT_SHOW_INPUT);
 
 // Variável de sinalização
@@ -27,12 +28,12 @@ function initEventShowInput() {
       }
     }, 100);
 
-      if (!eventoJaAcionado) {
-        eventoJaAcionado = true;
-        document.dispatchEvent(eventoEspecial);
-      }
+    if (!eventoJaAcionado) {
+      eventoJaAcionado = true;
+      document.dispatchEvent(eventoEspecial);
+    }
   } else {
-  setTimeout(initEventShowInput, 100);
+    setTimeout(initEventShowInput, 100);
   }
 }
 
@@ -48,6 +49,6 @@ function isVisibleWindow(elemento) {
   if (!elemento) return false;
   if (elemento.disabled) return false;
   return elemento?.parentNode !== null;
-} 
+}
 
-console.log("extension loaded")
+console.log("deu ruim, produtividade")
