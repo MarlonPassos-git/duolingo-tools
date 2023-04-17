@@ -3,17 +3,17 @@ import {
   correctFooterContainer,
   incorrectFooterContainer
 } from "../__mocks__/htmls"
-import { getIncorrectFooterContainer } from "./elements"
+import { getIncorrectFooterContainerElement } from "./elements"
 
-describe(getIncorrectFooterContainer.name, () => {
+describe(getIncorrectFooterContainerElement.name, () => {
   it("should return null if is in documents with not incorrect container", () => {
     window.document.body.innerHTML = correctFooterContainer
     console.log("saa")
-    expect(getIncorrectFooterContainer()).toBe(null)
+    expect(getIncorrectFooterContainerElement()).toBe(null)
   })
 
   it("should return a element if is in documents with incorrect container", () => {
     window.document.body.innerHTML = incorrectFooterContainer
-    expect(getIncorrectFooterContainer()).not.toBe(null)
+    expect(getIncorrectFooterContainerElement()).not.toBe(null)
   })
 })

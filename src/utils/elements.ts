@@ -3,7 +3,7 @@ export function getInputElement() {
   return document.querySelector(CSS_SELECTOR);
 }
 
-export function getIncorrectFooterContainer() {
+export function getIncorrectFooterContainerElement() {
   const CSS_SELECTOR = '[data-test*="blame-incorrect"]';
   return document.querySelector(CSS_SELECTOR);
 }
