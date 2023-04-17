@@ -22,6 +22,7 @@
     "chrome-types": "^0.1.183",
     "eslint": "^8.38.0",
     "happy-dom": "^9.7.1",
+    "jsdom": "^21.1.1",
     "typescript": "^5.0.4",
     "vite": "^4.2.1",
     "vite-plugin-eslint": "^1.8.1",
