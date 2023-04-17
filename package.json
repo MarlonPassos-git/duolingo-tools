@@ -1,17 +1,24 @@
 {
-  "name": "chrome-exetension-helloWold",
-  "description": "",
+  "name": "duolingo-tools",
+  "description": "free chrome extension",
   "scripts": {
     "dev": "rm dist/* -rf && vite",
     "build": "tsc && vite build",
     "test": "vitest",
-    "test:watch": "vitest dev"
+    "test:watch": "vitest dev",
+    "test:cov": "vitest --coverage"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Marlon Passos",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarlonPassos-git/duolingo-tools"
+  },
+  "homepage": "https://github.com/MarlonPassos-git/duolingo-tools#readme",
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
+    "@vitest/coverage-c8": "^0.30.1",
     "chrome-types": "^0.1.183",
     "eslint": "^8.38.0",
     "happy-dom": "^9.7.1",
