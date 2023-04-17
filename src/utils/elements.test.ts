@@ -3,20 +3,30 @@ import {
   correctFooterContainer,
   incorrectFooterContainer
 } from "../__mocks__/htmls"
-import { getIncorrectFooterContainerElement } from "./elements"
+import {
+  getIncorrectFooterContainerElement,
+  getInputElement
+} from "./elements"
 
 describe(getIncorrectFooterContainerElement.name, () => {
   it("should return null if is in documents with not incorrect container", () => {
-    mockDocumentWith(correctFooterContainer)
+    mockBodyWith(correctFooterContainer)
     expect(getIncorrectFooterContainerElement()).toBe(null)
   })
 
   it("should return a element if is in documents with incorrect container", () => {
-    mockDocumentWith(incorrectFooterContainer)
+    mockBodyWith(incorrectFooterContainer)
     expect(getIncorrectFooterContainerElement()).not.toBe(null)
   })
-
-  function mockDocumentWith(html: string) {
-    window.document.body.innerHTML = html
-  }
 })
+
+describe(getInputElement.name, () => {
+  it("should return null if is in documents with not input element", () => {
+    mockBodyWith(correctFooterContainer)
+    expect(getInputElement()).toBe(null)
+  })
+})
+
+function mockBodyWith(html: string) {
+  window.document.body.innerHTML = html
+}
