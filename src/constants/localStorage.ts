@@ -1,0 +1,1 @@
+export const LOCAL_STORAGE_KEY_AUTO_COMPLETE_INPUT = 'autoCompleteInput';
