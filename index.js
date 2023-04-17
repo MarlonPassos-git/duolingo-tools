@@ -8,66 +8,46 @@ square.addEventListener('click', () => {
 });
 
 document.body.appendChild(square);
-const eventoEspecial = new Event('elementoEspecialApareceu');
+const EVENT_SHOW_INPUT = 'elementoEspecialApareceu';
+const eventoEspecial = new Event(EVENT_SHOW_INPUT);
 
 // Variável de sinalização
 let eventoJaAcionado = false;
-let elementoEstaVisivel = false;
 
-// Função que cria e configura o observer
-function configurarObserver() {
-  console.log("configurarObserver")
-  // Seleciona o elemento que deve ser observado
+function initEventShowInput() {
   const elementoEspecial = document.querySelector('[data-test="challenge-translate-input"]:enabled');
-  // adicina o elemento especial como uma variável global
-  window.elementoEspecial = elementoEspecial;
 
-  // Verifica se o elemento especial existe
   if (elementoEspecial) {
-    elementoEstaVisivel = true;
 
     const interval = setInterval(() => {
-      if (!estaVisivelNaTela(elementoEspecial)) {
-        configurarObserver();
+      if (!isVisibleWindow(elementoEspecial)) {
+        initEventShowInput();
         eventoJaAcionado = false;
         clearInterval(interval);
       }
     }, 100);
 
-
-      // Verifica se o evento ainda não foi acionado
       if (!eventoJaAcionado) {
-
-        console.log("evento nao acionado")
-        // Sinaliza que o evento já foi acionado
         eventoJaAcionado = true;
-
-        // Dispara o evento personalizado
         document.dispatchEvent(eventoEspecial);
       }
   } else {
-  setTimeout(configurarObserver, 100);
-    elementoEstaVisivel = false;
+  setTimeout(initEventShowInput, 100);
   }
 }
 
-// Chama a função para configurar o observer
-configurarObserver();
+initEventShowInput();
 
-// Configura o observer para observar mudanças no elemento pai do elemento especial e seus filhos
 function minhaFuncao() {
   console.log('O elemento especial apareceu!');
 }
 
-// Inscreva-se no evento personalizado
-document.addEventListener('elementoEspecialApareceu', minhaFuncao);
+document.addEventListener(EVENT_SHOW_INPUT, minhaFuncao);
 
-
-
-function estaVisivelNaTela(elemento) {
+function isVisibleWindow(elemento) {
   if (!elemento) return false;
   if (elemento.disabled) return false;
   return elemento?.parentNode !== null;
 } 
 
-console.log("oi")
+console.log("extension loaded")
