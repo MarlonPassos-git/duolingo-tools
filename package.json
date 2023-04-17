@@ -4,9 +4,9 @@
   "scripts": {
     "dev": "rm dist/* -rf && vite",
     "build": "tsc && vite build",
-    "test": "vitest",
+    "test": "vitest run",
     "test:watch": "vitest dev",
-    "test:cov": "vitest --coverage"
+    "test:cov": "vitest run --coverage"
   },
   "keywords": [],
   "author": "Marlon Passos",
