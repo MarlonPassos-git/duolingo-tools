@@ -1,7 +1,8 @@
 import { expect, describe, it } from "vitest"
 import {
   correctFooterContainer,
-  incorrectFooterContainer
+  incorrectFooterContainer,
+  input
 } from "../__mocks__/htmls"
 import {
   getIncorrectFooterContainerElement,
@@ -25,6 +26,11 @@ describe(getInputElement.name, () => {
     mockBodyWith(correctFooterContainer)
     expect(getInputElement()).toBe(null)
   })
+
+  it('should return a element if is in document with input', () => {
+    mockBodyWith(input)
+    expect(getInputElement()).not.toBe(null)
+  });
 })
 
 function mockBodyWith(html: string) {

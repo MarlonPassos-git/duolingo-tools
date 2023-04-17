@@ -1,4 +1,4 @@
-import { expect, it, describe, vi, beforeAll } from "vitest";
+import { expect, it, describe, beforeAll } from "vitest";
 import { isElementVisible } from "./isElementVisible"
 
 describe(isElementVisible.name, () => {
