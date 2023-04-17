@@ -24,10 +24,28 @@ describe(AutoCompleteWrongTextArea.name, () => {
     const $textarea = document.createElement('textarea')
     $textarea.value = 'any_value'
     getTextAreaSpy.mockReturnValue($textarea)
-
     dispatchEventByName(EVENT_RESULT_ERROR)
 
     expect(storage.set).toHaveBeenCalledWith('any_question_id', 'any_value')
+  })
+
+  it("se cada tipos id de questão deve ter um local storage diferente", () => {
+    const { sut, storage, getTextAreaSpy, getQuestionIdSpy } = makeSut()
+    sut.init()
+    const $textarea = document.createElement('textarea')
+    $textarea.value = 'any_value_1'
+    getTextAreaSpy.mockReturnValue($textarea)
+
+    dispatchEventByName(EVENT_RESULT_ERROR)
+
+    expect(storage.set).toHaveBeenCalledWith('any_question_id_1', 'any_value_1')
+
+    $textarea.value = 'any_value_2'
+    getQuestionIdSpy.mockReturnValue('any_question_id_2')
+    dispatchEventByName(EVENT_RESULT_ERROR)
+
+    expect(storage.set).toHaveBeenCalledWith('any_question_id_2', 'any_value_2')
+    expect(storage.set).toHaveBeenCalledTimes(2)
   })
 
   function dispatchEventByName(eventName: string) {
@@ -41,7 +59,7 @@ describe(AutoCompleteWrongTextArea.name, () => {
       set = vi.fn()
     }
     const getTextAreaSpy = vi.fn<[], HTMLTextAreaElement | null>(() => null)
-    const getQuestionIdSpy = vi.fn<[], string>(() => 'any_question_id')
+    const getQuestionIdSpy = vi.fn<[], string>(() => 'any_question_id_1')
     const storage = new SimpleStorageSpy()
     const sut = new AutoCompleteWrongTextArea({
       storage,
