@@ -52,7 +52,7 @@ describe('createRecurringVisibleEvent', () => {
 
     queryElementMocked.mockImplementation(findElement);
     expect(eventListener).toHaveBeenCalledTimes(0);
-    vi.advanceTimersByTime(200);
+    vi.advanceTimersByTime(100);
 
     expect(eventListener).toHaveBeenCalledTimes(1);
 
@@ -67,6 +67,23 @@ describe('createRecurringVisibleEvent', () => {
     expect(eventListener).toHaveBeenCalledTimes(2);
   });
 
+  it('should be not call event listnert more than once if the element continue visible', () => {
+    const queryElementMocked = vi.fn().mockImplementation(doNotFindElement);
+    const sut = createRecurringVisibleEvent(EVENT_NAME, queryElementMocked);
+
+    sut();
+
+    queryElementMocked.mockImplementation(findElement);
+
+    expect(eventListener).toHaveBeenCalledTimes(0);
+
+    vi.advanceTimersByTime(100);
+    expect(eventListener).toHaveBeenCalledTimes(1);
+
+    vi.advanceTimersByTime(1000);
+    expect(eventListener).toHaveBeenCalledTimes(1);
+
+  });
   function doNotFindElement() {
     return null;
   }
