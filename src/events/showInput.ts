@@ -1,16 +1,16 @@
 import { isElementVisible } from "../utils/isElementVisible";
 import { EVENT_SHOW_INPUT } from '../constants/events';
+import { getInputElement } from "../utils/elements";
 
 export let eventHasTriggered = false;
 export const event = new Event(EVENT_SHOW_INPUT);
 
 export function initEventShowInput() {
-  const $element = document.querySelector('[data-test="challenge-translate-input"]:enabled');
 
-  if ($element) {
+  if (getInputElement()) {
 
     const interval = setInterval(() => {
-      if (!isElementVisible($element)) {
+      if (!isElementVisible(getInputElement())) {
         initEventShowInput();
         eventHasTriggered = false;
         clearInterval(interval);

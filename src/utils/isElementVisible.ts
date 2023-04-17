@@ -1,7 +1,7 @@
 /**
  * Verifica se um elemento HTML esta visível na tela principal do duolingo
  */
-export function isElementVisible<T extends Element>(elemento: T) {
+export function isElementVisible<T extends Element>(elemento: T | null) {
   if (!elemento)
     return false;
   if (elemento instanceof HTMLInputElement) {
