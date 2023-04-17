@@ -21,6 +21,12 @@ describe('createRecurringVisibleEvent', () => {
     expect(eventListener).toHaveBeenCalledTimes(0);
   });
 
+  it('should be call event Listener if element found in DOM', () => {
+    const eventFunction = createRecurringVisibleEvent(EVENT_NAME, findElement);
+    eventFunction();
+    expect(eventListener).toHaveBeenCalledTimes(1);
+  });
+
   function doNotFindElement() {
     return null;
   }
