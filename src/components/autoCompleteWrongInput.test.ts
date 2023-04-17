@@ -18,6 +18,18 @@ describe(AutoCompleteWrongTextArea.name, () => {
     expect(storage.set).toHaveBeenCalledTimes(1)
   })
 
+  it("se o error acontecer na primeira vez em uma pagina do tipo input deve salvar no local storage oque a pessoa digitou", () => {
+    const { sut, storage, getTextAreaSpy } = makeSut()
+    sut.init()
+    const $textarea = document.createElement('textarea')
+    $textarea.value = 'any_value'
+    getTextAreaSpy.mockReturnValue($textarea)
+
+    dispatchEventByName(EVENT_RESULT_ERROR)
+
+    expect(storage.set).toHaveBeenCalledWith('any_question_id', 'any_value')
+  })
+
   function dispatchEventByName(eventName: string) {
     const event = new Event(eventName)
     document.dispatchEvent(event)
