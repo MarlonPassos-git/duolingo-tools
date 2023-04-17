@@ -16,17 +16,22 @@ export interface SimpleStorage {
   set(key: string, value: string): void;
 }
 
-export type IAutoCompleteWrongInput = {
-  init: () => void;
+type AutoCompleteWrongTextAreaConfig = {
+  storage: SimpleStorage;
+  getTextArea?: () => HTMLTextAreaElement | null;
+  getQuestionId: () => string;
 }
 
-export class AutoCompleteWrongTextArea implements IAutoCompleteWrongInput {
-  constructor(
-    private storage: SimpleStorage,
-    private getTextArea: () => HTMLTextAreaElement | null = getInputElement,
-    private getQuestionId: () => string
-  ) { }
+export class AutoCompleteWrongTextArea {
+  private storage: SimpleStorage;
+  private getTextArea: () => HTMLTextAreaElement | null;
+  private getQuestionId: () => string;
 
+  constructor({ storage, getTextArea = getInputElement, getQuestionId }: AutoCompleteWrongTextAreaConfig) {
+    this.storage = storage;
+    this.getTextArea = getTextArea;
+    this.getQuestionId = getQuestionId;
+  }
 
   init() {
     document.addEventListener(EVENT_RESULT_ERROR, this.handle.bind(this));
@@ -38,7 +43,7 @@ export class AutoCompleteWrongTextArea implements IAutoCompleteWrongInput {
     this.storage.set(this.getQuestionId(), input.value);
   }
 
-  private hasTextAreaInPage(): boolean {
-    return this.getTextArea() !== null;
+  private hasTextAreaInPage() {
+    return this.getTextArea() !== null
   }
 }

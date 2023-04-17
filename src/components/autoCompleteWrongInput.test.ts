@@ -31,7 +31,11 @@ describe(AutoCompleteWrongTextArea.name, () => {
     const getTextAreaSpy = vi.fn<[], HTMLTextAreaElement | null>(() => null)
     const getQuestionIdSpy = vi.fn<[], string>(() => 'any_question_id')
     const storage = new SimpleStorageSpy()
-    const sut = new AutoCompleteWrongTextArea(storage, getTextAreaSpy, getQuestionIdSpy)
+    const sut = new AutoCompleteWrongTextArea({
+      storage,
+      getTextArea: getTextAreaSpy,
+      getQuestionId: getQuestionIdSpy
+    })
 
     return { sut, storage, getTextAreaSpy, getQuestionIdSpy }
   }
