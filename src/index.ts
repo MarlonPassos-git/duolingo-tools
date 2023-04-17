@@ -1,4 +1,4 @@
-import { EVENT_SHOW_INPUT } from './constants/events';
+import { EVENT_SHOW_INPUT, EVENT_RESULT_ERROR } from './constants/events';
 import { initAllEvents } from './events'
 
 const square = document.createElement('div');
@@ -21,5 +21,7 @@ function minhaFuncao() {
 }
 
 document.addEventListener(EVENT_SHOW_INPUT, minhaFuncao);
-
+document.addEventListener(EVENT_RESULT_ERROR, () => {
+  console.log('Aconteu algum erro!');
+});
 console.log("deu ruim, produtividade, 3")
