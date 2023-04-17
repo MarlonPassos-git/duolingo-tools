@@ -13,12 +13,12 @@ describe(AutoCompleteWrongTextArea.name, () => {
     const { sut, storage, getTextAreaSpy } = makeSut()
     sut.init()
     getTextAreaSpy.mockReturnValue(document.createElement('textarea'))
-    dispatchEvent(EVENT_RESULT_ERROR)
+    dispatchEventByName(EVENT_RESULT_ERROR)
 
     expect(storage.set).toHaveBeenCalledTimes(1)
   })
 
-  function dispatchEvent(eventName: string) {
+  function dispatchEventByName(eventName: string) {
     const event = new Event(eventName)
     document.dispatchEvent(event)
   }
