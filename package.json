@@ -3,7 +3,9 @@
   "description": "",
   "scripts": {
     "dev": "rm dist/* -rf && vite",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "test": "vitest",
+    "test:watch": "vitest dev"
   },
   "keywords": [],
   "author": "",
