@@ -13,7 +13,7 @@
         "src/constants/events"
       ],
       "css": [
-        "styles.css"
+        "src/styles/styles.css"
       ],
       "run_at": "document_idle"
     }

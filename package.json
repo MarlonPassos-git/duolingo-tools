@@ -9,10 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@crxjs/vite-plugin": "^1.0.14",
     "chrome-types": "^0.1.183",
+    "happy-dom": "^9.7.1",
     "typescript": "^5.0.4",
     "vite": "^4.2.1",
-    "@crxjs/vite-plugin": "^1.0.14"
-  },
-  "dependencies": {}
+    "vitest": "^0.30.1"
+  }
 }
