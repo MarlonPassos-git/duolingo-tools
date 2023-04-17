@@ -24,4 +24,4 @@ document.addEventListener(EVENT_SHOW_INPUT, minhaFuncao);
 document.addEventListener(EVENT_RESULT_ERROR, () => {
   console.log('Aconteu algum erro!');
 });
-console.log("deu ruim, produtividade, 3")
+console.log("deu ruim, produtividade, 4")
