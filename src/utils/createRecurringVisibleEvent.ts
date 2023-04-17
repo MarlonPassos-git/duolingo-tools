@@ -5,7 +5,6 @@ export function createRecurringVisibleEvent(eventName: string, queryElement: () 
   let eventHasTriggered = false;
 
   return function initEvent() {
-    console.log("a", queryElement())
     if (queryElement()) {
 
       const interval = setInterval(() => {

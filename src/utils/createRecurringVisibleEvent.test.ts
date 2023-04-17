@@ -17,23 +17,24 @@ describe('createRecurringVisibleEvent', () => {
   });
 
   it('should be not call event Listener if element do not found in DOM', () => {
+    const sut = createRecurringVisibleEvent(EVENT_NAME, doNotFindElement);
+    sut();
 
-    const eventFunction = createRecurringVisibleEvent(EVENT_NAME, doNotFindElement);
-    eventFunction();
     expect(eventListener).toHaveBeenCalledTimes(0);
   });
 
   it('should be call event Listener if element found in DOM', () => {
-    const eventFunction = createRecurringVisibleEvent(EVENT_NAME, findElement);
-    eventFunction();
+    const sut = createRecurringVisibleEvent(EVENT_NAME, findElement);
+    sut();
+
     expect(eventListener).toHaveBeenCalledTimes(1);
   });
 
-  it.only('should be call event Listener at the right time that the element is visible ', () => {
+  it('should be call event Listener at the right time that the element is visible ', () => {
     const queryElementMocked = vi.fn().mockImplementation(doNotFindElement);
-    const eventFunction = createRecurringVisibleEvent(EVENT_NAME, queryElementMocked);
+    const sut = createRecurringVisibleEvent(EVENT_NAME, queryElementMocked);
 
-    eventFunction();
+    sut();
 
     queryElementMocked.mockImplementation(findElement);
     expect(eventListener).toHaveBeenCalledTimes(0);
