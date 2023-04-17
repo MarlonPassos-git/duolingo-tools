@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { AutoCompleteWrongTextArea, SimpleStorage } from './autoCompleteWrongInput'
-import { EVENT_RESULT_ERROR } from '../constants'
+import { EVENT_FINISH_LESSON, EVENT_RESULT_ERROR } from '../constants'
 
 describe(AutoCompleteWrongTextArea.name, () => {
   const QUESTION_ID = 'any_question_id_1'
@@ -61,6 +61,13 @@ describe(AutoCompleteWrongTextArea.name, () => {
     expect(storage.set).toHaveBeenCalledWith(QUESTION_ID, 'any_value_2')
   })
 
+  it("quando finalizar a lição, deve limpar os dados do storage", () => {
+    const { sut, storage } = makeSut()
+    sut.init()
+    dispatchEventByName(EVENT_FINISH_LESSON)
+    expect(storage.clearAll).toHaveBeenCalledTimes(1)
+  })
+
   function dispatchEventByName(eventName: string) {
     const event = new Event(eventName)
     document.dispatchEvent(event)
@@ -77,6 +84,7 @@ describe(AutoCompleteWrongTextArea.name, () => {
     class SimpleStorageSpy implements SimpleStorage {
       get = vi.fn()
       set = vi.fn()
+      clearAll = vi.fn()
     }
     const getTextAreaSpy = vi.fn<[], HTMLTextAreaElement | null>(() => null)
     const getQuestionIdSpy = vi.fn<[], string>(() => QUESTION_ID)

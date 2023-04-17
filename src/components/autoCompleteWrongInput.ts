@@ -14,6 +14,7 @@ import { getInputElement } from "../utils/elements"
 export interface SimpleStorage {
   get(key: string): null | string;
   set(key: string, value: string): void;
+  clearAll(): void;
 }
 
 type AutoCompleteWrongTextAreaConfig = {

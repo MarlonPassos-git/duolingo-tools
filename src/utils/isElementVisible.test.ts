@@ -30,4 +30,5 @@ describe(isElementVisible.name, () => {
 
     expect(isElementVisible(element)).toBe(true)
   })
+
 })
