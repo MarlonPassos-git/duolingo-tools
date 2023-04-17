@@ -2,10 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { AutoCompleteWrongTextArea, SimpleStorage } from './autoCompleteWrongInput'
 import { EVENT_RESULT_ERROR } from '../constants'
 
-
 describe(AutoCompleteWrongTextArea.name, () => {
-
-
   it("se o erro acontecer em uma pagina que nao tem o input, nao deve fazer nada", () => {
     const { sut, storage } = makeSut()
     sut.init()
@@ -16,12 +13,15 @@ describe(AutoCompleteWrongTextArea.name, () => {
     const { sut, storage, getTextAreaSpy } = makeSut()
     sut.init()
     getTextAreaSpy.mockReturnValue(document.createElement('textarea'))
-    const resultErrorEvent = new Event(EVENT_RESULT_ERROR)
-    document.dispatchEvent(resultErrorEvent)
+    dispatchEvent(EVENT_RESULT_ERROR)
 
     expect(storage.set).toHaveBeenCalledTimes(1)
   })
 
+  function dispatchEvent(eventName: string) {
+    const event = new Event(eventName)
+    document.dispatchEvent(event)
+  }
 
   function makeSut() {
     class SimpleStorageSpy implements SimpleStorage {
