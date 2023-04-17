@@ -14,6 +14,7 @@ describe('createRecurringVisibleEvent', () => {
 
   afterEach(() => {
     document.removeEventListener(EVENT_NAME, eventListener);
+    vi.clearAllTimers();
   });
 
   it('should be not call event Listener if element do not found in DOM', () => {
@@ -43,11 +44,39 @@ describe('createRecurringVisibleEvent', () => {
     expect(eventListener).toHaveBeenCalledTimes(1);
   });
 
+  it('should be call event Listener at the right time that the element is visible and call again when the element is not visible', () => {
+    const queryElementMocked = vi.fn().mockImplementation(doNotFindElement);
+    const sut = createRecurringVisibleEvent(EVENT_NAME, queryElementMocked);
+
+    sut();
+
+    queryElementMocked.mockImplementation(findElement);
+    expect(eventListener).toHaveBeenCalledTimes(0);
+    vi.advanceTimersByTime(200);
+
+    expect(eventListener).toHaveBeenCalledTimes(1);
+
+    queryElementMocked.mockImplementation(doNotFindElement);
+    vi.advanceTimersByTime(100);
+
+    expect(eventListener).toHaveBeenCalledTimes(1);
+
+    queryElementMocked.mockImplementation(findElement);
+    vi.advanceTimersByTime(100);
+
+    expect(eventListener).toHaveBeenCalledTimes(2);
+  });
+
   function doNotFindElement() {
     return null;
   }
 
   function findElement() {
-    return document.createElement('div');
+    const root = document.createElement('div');
+    const div = document.createElement('div');
+
+    root.appendChild(div);
+
+    return div;
   }
 });
