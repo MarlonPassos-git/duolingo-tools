@@ -3,6 +3,9 @@ import { AutoCompleteWrongTextArea, SimpleStorage } from './autoCompleteWrongInp
 import { EVENT_RESULT_ERROR } from '../constants'
 
 describe(AutoCompleteWrongTextArea.name, () => {
+  const QUESTION_ID = 'any_question_id_1'
+  const TEXT_AREA_VALUE = 'any_value_1'
+
   it("se o erro acontecer em uma pagina que nao tem o input, nao deve fazer nada", () => {
     const { sut, storage } = makeSut()
     sut.init()
@@ -25,7 +28,7 @@ describe(AutoCompleteWrongTextArea.name, () => {
     getTextAreaSpy.mockReturnValue($textarea)
     dispatchEventByName(EVENT_RESULT_ERROR)
 
-    expect(storage.set).toHaveBeenCalledWith('any_question_id_1', 'any_value_1')
+    expect(storage.set).toHaveBeenCalledWith(QUESTION_ID, TEXT_AREA_VALUE)
   })
 
   it("se cada tipos id de questão deve ter um local storage diferente", () => {
@@ -36,7 +39,7 @@ describe(AutoCompleteWrongTextArea.name, () => {
 
     dispatchEventByName(EVENT_RESULT_ERROR)
 
-    expect(storage.set).toHaveBeenCalledWith('any_question_id_1', 'any_value_1')
+    expect(storage.set).toHaveBeenCalledWith(QUESTION_ID, TEXT_AREA_VALUE)
 
     $textarea.value = 'any_value_2'
     getQuestionIdSpy.mockReturnValue('any_question_id_2')
@@ -55,7 +58,7 @@ describe(AutoCompleteWrongTextArea.name, () => {
 
     $textarea.value = 'any_value_2'
     dispatchEventByName(EVENT_RESULT_ERROR)
-    expect(storage.set).toHaveBeenCalledWith('any_question_id_1', 'any_value_2')
+    expect(storage.set).toHaveBeenCalledWith(QUESTION_ID, 'any_value_2')
   })
 
   function dispatchEventByName(eventName: string) {
@@ -65,7 +68,7 @@ describe(AutoCompleteWrongTextArea.name, () => {
 
   function makeTextArea() {
     const result = document.createElement('textarea')
-    result.value = 'any_value_1'
+    result.value = TEXT_AREA_VALUE
 
     return result
   }
@@ -76,7 +79,7 @@ describe(AutoCompleteWrongTextArea.name, () => {
       set = vi.fn()
     }
     const getTextAreaSpy = vi.fn<[], HTMLTextAreaElement | null>(() => null)
-    const getQuestionIdSpy = vi.fn<[], string>(() => 'any_question_id_1')
+    const getQuestionIdSpy = vi.fn<[], string>(() => QUESTION_ID)
     const storage = new SimpleStorageSpy()
     const sut = new AutoCompleteWrongTextArea({
       storage,
